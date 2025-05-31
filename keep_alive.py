@@ -27,27 +27,28 @@ def keep_alive():
     """Функция для поддержания активности на Render"""
     while True:
         try:
-            # URL вашего сервиса на Render
             url = "https://telegram-bot-9kxx.onrender.com"
             response = requests.get(url)
             logger.info(f"Keep-alive ping sent. Status: {response.status_code}")
         except Exception as e:
             logger.error(f"Keep-alive error: {e}")
-        
-        # Ждем 5 минут
         time.sleep(300)
 
-if __name__ == "__main__":
+def start_keep_alive():
+    """Запускает бота, keep-alive и Flask сервер в отдельных потоках"""
     # Запускаем бота в отдельном потоке
     bot_thread = threading.Thread(target=run_bot, daemon=True)
     bot_thread.start()
     logger.info("🚀 Бот запущен...")
-    
-    # Запускаем поддержание активности в отдельном потоке
+
+    # Запускаем keep-alive в отдельном потоке
     keep_alive_thread = threading.Thread(target=keep_alive, daemon=True)
     keep_alive_thread.start()
     logger.info("Keep-alive thread started")
-    
-    # Запускаем Flask в основном потоке
+
+    # Запускаем Flask сервер в основном потоке
     port = int(os.environ.get('PORT', 10000))
     app.run(host='0.0.0.0', port=port)
+
+if __name__ == "__main__":
+    start_keep_alive()
