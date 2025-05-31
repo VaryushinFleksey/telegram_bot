@@ -7,6 +7,8 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.13
+      - key: PORT
+        value: 10000
     healthCheckPath: /health
     autoDeploy: true
     numInstances: 1
@@ -14,4 +16,4 @@ services:
       minInstances: 1
       maxInstances: 1
     restart:
-      policy: always 
+      policy: always
