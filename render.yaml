@@ -1,19 +1,17 @@
-services:
-  - type: web
-    name: telegram-bot
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python bot.py
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.13
-      - key: PORT
-        value: 10000
-    healthCheckPath: /health
-    autoDeploy: true
-    numInstances: 1
-    scaling:
-      minInstances: 1
-      maxInstances: 1
-    restart:
-      policy: always
+   services:
+     - type: web
+       name: telegram-bot
+       env: python
+       buildCommand: pip install -r requirements.txt
+       startCommand: python keep_alive.py
+       envVars:
+         - key: PYTHON_VERSION
+           value: 3.13
+       healthCheckPath: /health
+       autoDeploy: true
+       numInstances: 1
+       scaling:
+         minInstances: 1
+         maxInstances: 1
+       restart:
+         policy: always
