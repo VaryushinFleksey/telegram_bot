@@ -2,6 +2,7 @@ from flask import Flask
 import threading
 import time
 import requests
+import os
 from bot_log import logger
 
 app = Flask(__name__)
@@ -16,14 +17,15 @@ def health():
 
 def run_flask():
     """Запускает Flask сервер"""
-    app.run(host='0.0.0.0', port=10000)
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port)
 
 def keep_alive():
     """Функция для поддержания активности на Render"""
     while True:
         try:
-            # После деплоя замените YOUR_RENDER_URL на URL вида https://your-app-name.onrender.com
-            url = "YOUR_RENDER_URL"
+            # URL вашего сервиса на Render
+            url = "https://telegram-bot-9kxx.onrender.com"
             response = requests.get(url)
             logger.info(f"Keep-alive ping sent. Status: {response.status_code}")
         except Exception as e:
@@ -42,4 +44,4 @@ def start_keep_alive():
     # Запускаем поддержание активности
     keep_alive_thread = threading.Thread(target=keep_alive, daemon=True)
     keep_alive_thread.start()
-    logger.info("Keep-alive thread started") 
+    logger.info("Keep-alive thread started")
