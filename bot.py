@@ -16,30 +16,31 @@ def health():
 
 def run_flask():
     """Запускает Flask сервер"""
-    app.run(host='0.0.0.0', port=10000)
+    app.run(host='0.0.0.0', port=10000, debug=False, use_reloader=False)
 
 def keep_alive():
     """Функция для поддержания активности на Render"""
     while True:
         try:
-            # URL вашего сервиса на Render
             url = "https://telegram-bot-9kxx.onrender.com"
             response = requests.get(url)
             logger.info(f"Keep-alive ping sent. Status: {response.status_code}")
         except Exception as e:
             logger.error(f"Keep-alive error: {e}")
-        
-        # Ждем 5 минут
         time.sleep(300)
 
 def start_keep_alive():
     """Запускает поддержание активности и Flask сервер в отдельных потоках"""
-    # Запускаем Flask сервер
     flask_thread = threading.Thread(target=run_flask, daemon=True)
     flask_thread.start()
     logger.info("Flask server started")
     
-    # Запускаем поддержание активности
     keep_alive_thread = threading.Thread(target=keep_alive, daemon=True)
     keep_alive_thread.start()
     logger.info("Keep-alive thread started")
+
+if __name__ == "__main__":
+    start_keep_alive()
+    # Чтобы основной поток не завершился и не остановил демоны, можно сделать так:
+    while True:
+        time.sleep(60)
