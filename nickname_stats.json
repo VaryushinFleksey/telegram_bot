@@ -1,0 +1,24 @@
+{
+    "nickname_counts": {
+        "крушон": 1
+    },
+    "user_nicknames": {
+        "<a href=\"tg://user?id=43680181\">@VaryushinAleksey</a>": [
+            {
+                "nickname": "крушон",
+                "date": "2025-05-31T20:59:08.774354"
+            }
+        ]
+    },
+    "history": [
+        {
+            "nickname": "крушон",
+            "assigned_to": "<a href=\"tg://user?id=43680181\">@VaryushinAleksey</a>",
+            "date": "2025-05-31T20:59:08.774419"
+        }
+    ],
+    "top_users": {
+        "<a href=\"tg://user?id=43680181\">@VaryushinAleksey</a>": 1
+    },
+    "last_update": "2025-05-31T20:59:08.774426"
+}
